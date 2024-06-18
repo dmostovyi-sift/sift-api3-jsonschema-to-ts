@@ -12,3 +12,10 @@
 4. Save the selected objects to a temporary directory
 5. Compile the generated files into TypeScript type definitions
 6. Save the generated files to the target directory.
+
+### TODO
+
+- [ ] Import referenced types, not redeclare them
+- [ ] Create CLI tool
+- [ ] Add tests
+- [ ] Add generic type support
