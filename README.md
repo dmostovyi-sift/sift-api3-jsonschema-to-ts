@@ -19,3 +19,4 @@
 - [ ] Create CLI tool
 - [ ] Add tests
 - [ ] Add generic type support
+- [ ] Propper required fields
