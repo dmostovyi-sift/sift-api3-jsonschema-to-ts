@@ -2,8 +2,12 @@
   "name": "sift-generate-types",
   "version": "0.0.0",
   "main": "lib/index.js",
+  "bin": {
+    "sift-schema": "bin/sift-schema.js"
+  },
   "type": "module",
   "scripts": {
+    "parse": "node ./bin/sift-schema.js -i ~/sift/code/java/sift-json/src/main/json/ -o ~/sift/console/src/schema/",
     "test": "node --test --experimental-test-coverage"
   },
   "dependencies": {
