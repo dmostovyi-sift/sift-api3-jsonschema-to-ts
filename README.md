@@ -10,7 +10,7 @@ TODO
 
 #### Command Line Interface
 
-TODO
+The tool accepts input directory containing YAML schemas and outputs TypeScript definition files.
 
 ```bash
 # Using global installation
@@ -60,6 +60,6 @@ sift-schema -i ~/sift/code/java/sift-json/src/main/json/ -o ~/sift/console/src/s
 - [x] CLI tool
 - [x] Basic tests
 - [x] Generic type support
-- [ ] Import referenced types, not redeclare them
+- [x] Import referenced types, not redeclare them
 - [ ] Comprehensive test coverage
       `
