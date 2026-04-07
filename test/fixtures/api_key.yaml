@@ -1,0 +1,45 @@
+---
+title: Api Key
+description: JSON representation of an API Key
+type: object
+javaType: com.sift.api.representations.ApiKeyJson
+properties:
+  id:
+    description: Identifier for this API keys
+    type: string
+    scope: public
+  state:
+    description: State of the API key. Only ACTIVE keys can make requests.
+    enum:
+    - ACTIVE
+    - DISABLED
+    - DELETED
+    enum_descriptions:
+      ACTIVE: This key is active, and may be used for API requests.
+      DISABLED: This key has been disabled, and will not be accepted unless reactivated.
+    scope: public
+  key:
+    description: The actual key to be used for authenticated API requests
+    type: string
+    scope: public
+  permissions:
+    description: The permissions that this key has access to.  Empty, gives a key full access.
+    type: array
+    items:
+      type: string
+    scope: public
+  name:
+    description: The name of the Api key
+    type: string
+    scope: public
+  description:
+    description: The description of the Api key
+    type: string
+    scope: public
+  hashing_algorithm:
+    description: The cryptographic hash function used to sign our Webhook signatures
+    enum:
+      - SHA_1
+      - SHA_256
+    scope: public
+additionalProperties: false

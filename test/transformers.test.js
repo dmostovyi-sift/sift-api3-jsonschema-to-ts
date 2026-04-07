@@ -1,7 +1,54 @@
 import test, { describe } from "node:test";
 import assert from "node:assert/strict";
-import { normalize } from "../lib/transformers.js";
-import { title } from "node:process";
+import {
+  normalizeRequiredFields,
+  normalizeSchemaInternalReferences,
+  normalizeSchemaTitle,
+  removeTitleJsonSuffixe,
+  transformJavaTypesToJsonSchema,
+  cleanupScheme,
+} from "../lib/transformers.js";
+
+function normalize(json) {
+  const file = { json, module: "MockModule", name: "MockFile", dirpath: "." };
+  const referencesMap = new Map();
+
+  if (json.javaType === undefined) {
+    throw new Error("Schema must have a javaType property");
+  }
+
+  // Step 1
+  removeTitleJsonSuffixe(file);
+
+  // Step 2
+  normalizeRequiredFields(file);
+  console.log(
+    "After normalizeRequiredFields:",
+    JSON.stringify(file.json, null, 2),
+  );
+
+  // Helper for traversal
+  function traverse(obj, callback) {
+    for (const key in obj) {
+      callback(obj, key);
+      if (obj[key] && typeof obj[key] === "object") {
+        traverse(obj[key], callback);
+      }
+    }
+  }
+
+  // Step 3
+  traverse(file.json, normalizeSchemaTitle);
+  console.log("After title", file.json.required);
+  traverse(file.json, normalizeSchemaInternalReferences);
+  console.log("After refs", file.json.required);
+  traverse(file.json, cleanupScheme);
+  console.log("After cleanup", file.json.required);
+  traverse(file.json, transformJavaTypesToJsonSchema(referencesMap, file));
+  console.log("After transform", file.json.required);
+
+  return file.json;
+}
 
 describe("transformers", () => {
   test("throws an error if there is no javaType in a top level of a schema", () => {
@@ -19,8 +66,7 @@ describe("transformers", () => {
 
   test("jsonSchema title substitutes with parsed javaType", () => {
     const expected = {
-      javaType: "com.sift.AccountContentJson<T>",
-      title: "AccountContent",
+      description: "AccountContent",
       properties: {},
     };
 
@@ -35,8 +81,7 @@ describe("transformers", () => {
 
   test('removes "title" from a schema', () => {
     const expected = {
-      javaType: "",
-      title: "",
+      description: "",
       properties: {
         id: {
           type: "string",
@@ -69,8 +114,7 @@ describe("transformers", () => {
 
   test("fixes property path for schema references", () => {
     const expected = {
-      javaType: "",
-      title: "",
+      description: "",
       properties: {
         id: {
           $ref: "account.json#/properties/user/id",
@@ -93,8 +137,7 @@ describe("transformers", () => {
 
   test("moves reqired fields to an array", () => {
     const expected = {
-      javaType: "",
-      title: "",
+      description: "",
       properties: {
         id: {
           type: "string",
@@ -175,8 +218,7 @@ describe("transformers", () => {
 
   test("converts java types to schema types", () => {
     const expected = {
-      javaType: "",
-      title: "",
+      description: "",
       properties: {
         first: {
           type: "array",

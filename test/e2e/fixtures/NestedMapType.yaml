@@ -1,0 +1,19 @@
+title: NestedMapType
+description: Object with various map structures including Map<String, Map<String, primitive>>
+javaType: com.example.NestedMapType
+type: object
+properties:
+  scores:
+    description: Map from string key to a double score
+    type: object
+    javaType: java.util.Map<String, Double>
+  counters:
+    description: Nested map — Map<String, Map<String, Integer>>
+    type: object
+    javaType: java.util.Map<String, java.util.Map<String, Integer>>
+    default: {}
+  byRef:
+    description: Map whose value type is a referenced schema
+    type: object
+    javaType: java.util.Map<String, com.example.NestedObject>
+additionalProperties: false

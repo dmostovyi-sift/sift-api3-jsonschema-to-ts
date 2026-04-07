@@ -1,0 +1,22 @@
+title: EnumInProperty
+description: Object where a property is an enum with its own javaType (like DecisionJsonType)
+javaType: com.example.EnumInProperty
+type: object
+properties:
+  status:
+    enum:
+      - active
+      - disabled
+      - deleted
+    javaType: com.example.StatusEnum
+    required: true
+  type:
+    enum:
+      - red
+      - yellow
+      - green
+    javaType: com.example.ColorEnum
+    required: true
+  name:
+    type: string
+additionalProperties: false

@@ -1,0 +1,7 @@
+title: SubType
+description: Object in subdir referencing another file in same subdir
+javaType: com.example.subdir.SubType
+type: object
+properties:
+  relative:
+    $ref: Relative.yaml

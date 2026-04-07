@@ -1,0 +1,17 @@
+title: Complex
+description: Complex types including nesting and generics
+javaType: com.example.Complex
+type: object
+properties:
+  listOfLists:
+    type: array
+    javaType: java.util.List<java.util.List<String>>
+  mapOfLists:
+    type: object
+    javaType: java.util.Map<String, java.util.List<Integer>>
+  anyObject:
+    type: object
+    javaType: java.lang.Object
+  wildcardList:
+    type: array
+    javaType: java.util.List<Object>

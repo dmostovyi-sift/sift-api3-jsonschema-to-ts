@@ -1,0 +1,20 @@
+---
+title: Card Layout
+type: object
+javaType: com.sift.api.representations.CardLayoutJson
+description: JSON representation of card layout for a specific abuse type
+properties:
+  show_case_summary_card:
+    type: boolean
+  layout:
+    type: string
+    required: true
+  key_indicators:
+    type: string
+  last_edited:
+    type: integer
+    readonly: true
+  last_edited_by:
+    type: string
+    readonly: true
+additionalProperties: false

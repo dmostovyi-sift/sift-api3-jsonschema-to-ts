@@ -1,0 +1,14 @@
+title: NestedObject
+description: An object with a nested Java type definition
+javaType: com.example.NestedObject
+type: object
+properties:
+  id:
+    type: string
+  child:
+    description: Nested defined object
+    type: object
+    javaType: com.example.ChildObject
+    properties:
+      name:
+        type: string

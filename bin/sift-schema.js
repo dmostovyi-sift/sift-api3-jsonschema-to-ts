@@ -18,8 +18,8 @@ const { values } = parseArgs({
 const { input, output } = values;
 
 if (!input || !output) {
-  console.error("Usage: sift-schema -i <inputDir> -o <outputDir>");
-  console.error("   or: sift-schema --input <inputDir> --output <outputDir>");
+  console.error("Usage: jyst -i <inputDir> -o <outputDir>");
+  console.error("   or: jyst --input <inputDir> --output <outputDir>");
   process.exit(1);
 }
 

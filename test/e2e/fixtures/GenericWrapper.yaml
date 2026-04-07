@@ -1,0 +1,16 @@
+title: GenericWrapper
+description: A generic wrapper type — file-level generic type parameter T
+javaType: com.example.GenericWrapper<T>
+type: object
+properties:
+  data:
+    type: array
+    items:
+      type: object
+      javaType: T
+  count:
+    type: integer
+  has_more:
+    type: boolean
+    default: false
+additionalProperties: false

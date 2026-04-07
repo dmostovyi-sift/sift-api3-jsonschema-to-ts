@@ -1,0 +1,8 @@
+title: MyEnum
+description: A simple enum
+javaType: com.example.MyEnum
+type: string
+enum:
+  - A
+  - B
+  - C

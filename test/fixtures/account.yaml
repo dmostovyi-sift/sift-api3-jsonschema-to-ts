@@ -1,0 +1,179 @@
+---
+title: Account
+description: JSON representation of an Account
+type: object
+javaType: com.sift.api.representations.AccountJson
+properties:
+  id:
+    description: Account ID
+    type: string
+    required: true
+  organization_id:
+    description: Organization ID (if account is associated with an organization)
+    type: string
+  name:
+    description: Account name
+    type: string
+  createdAt:
+    description: Time of account creation as a Java timestamp
+    type: integer
+  metadata:
+    description: Unstructured metadata about the account
+    type: object
+    javaType: java.util.Map<String, String>
+  config:
+    description: Account configuration
+    $ref: account_config.yaml
+  features:
+    description: Account features
+    type: object
+    javaType: java.util.Map<String, Object>
+  per_analyst_overrides:
+    description: Per analyst feature overrides
+    type: object
+    javaType: java.util.Map<String, Object>
+  feature_plan:
+    description: Account feature plan
+    $ref: feature_plan.yaml#properties/feature_plan
+  custom_package_id:
+    description: Account custom package id
+    $ref: feature_plan.yaml#properties/custom_package_id
+  product:
+    $ref: product.yaml#properties/product
+  abuse_types:
+    description: Abuse types to which the account is subscribed
+    type: array
+    items:
+      $ref: abuse_type.yaml#properties/abuse_type
+  migration_abuse_type:
+    description: Abuse types to which the account migrated when activating multiple abuse types
+    $ref: abuse_type.yaml#properties/abuse_type
+  pricing_plan:
+    description: Name of pricing plan
+    type: string
+  has_custom_pricing:
+    description: Does the account have custom, negotiated pricing.
+    type: boolean
+  current_support_plan:
+    description: The current support plan
+    $ref: support_plan.yaml
+  next_support_plan:
+      description: The support plan for the next cycle, which may be empty
+      $ref: support_plan.yaml
+  trial_ends:
+    description: "Timestamp (in millis) for when a customer's trial period is over"
+    type: integer
+  trial_has_been_extended:
+    description: Whether trial period has been extended
+    type: boolean
+  customer_has_chosen_plan:
+    description: Has this customer chosen his plan yet?
+    type: boolean
+  promo_code:
+    description: The promotion code used by this account, if any.
+    type: string
+  platform_id:
+    description: ID of platform on which account is hosted
+    type: string
+  should_receive_integration_email:
+    description: Whether this customer should receive the integration email
+    type: boolean
+  metrics:
+    description: Account metrics
+    type: object
+    javaType: com.sift.api.representations.AccountMetricJson
+    properties:
+      start_millis:
+        type: integer
+      end_millis:
+        type: integer
+      event_counts:
+        type: object
+        javaType: java.util.Map<String, EventCountsJson>
+        required: false
+      javascript_event_counts:
+        $ref: event_counts.yaml
+      high_priority_javascript_events_count:
+        type: integer
+      label_counts:
+        $ref: event_counts.yaml
+      good_label_counts:
+        $ref: event_counts.yaml
+      bad_label_counts:
+        $ref: event_counts.yaml
+      good_batch_label_counts:
+        $ref: event_counts.yaml
+      bad_batch_label_counts:
+        $ref: event_counts.yaml
+      unlabel_counts:
+        $ref: event_counts.yaml
+      analyst_label_counts:
+        type: object
+        javaType: java.util.Map<String, Long>
+        required: false
+      score_counts:
+        $ref: event_counts.yaml
+      page_events:
+        type: integer
+      total_event_counts:
+        $ref: event_counts.yaml
+      custom_events:
+        type: integer
+      transaction_events:
+        type: integer
+      label_events:
+        type: integer
+      push_notifications_sent:
+        type: integer
+      event_api_bad_requests:
+        type: integer
+      event_api_errors:
+        type: integer
+      all_events:
+        type: integer
+      device_gets:
+        type: integer
+      device_gets_for_user:
+        type: integer
+      session_gets:
+        type: integer
+      device_label_counts:
+        $ref: event_counts.yaml
+      android_counts:
+        $ref: event_counts.yaml
+      ios_counts:
+        $ref: event_counts.yaml
+      decision_counts:
+        $ref: event_counts.yaml
+    additionalProperties: false
+  has_sent_events:
+    description: Whether this customer is in trial and has sent rest events
+    type: boolean
+  risk_watch_enabled:
+    description: Whether this customer is enabled with RiskWatch
+    type: boolean
+  api_keys:
+    type: array
+    items:
+      $ref: api_key.yaml
+  beacon_keys:
+    type: array
+    items:
+      $ref: api_key.yaml
+  webhook_keys:
+      type: array
+      items:
+        $ref: api_key.yaml
+  sandbox_api_keys:
+    type: array
+    items:
+      $ref: api_key.yaml
+  sandbox_beacon_keys:
+    type: array
+    items:
+      $ref: api_key.yaml
+  sandbox_webhook_keys:
+    type: array
+    items:
+      $ref: api_key.yaml
+additionalProperties: false

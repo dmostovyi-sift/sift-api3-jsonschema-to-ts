@@ -1,0 +1,7 @@
+title: CircularA
+description: Type A referencing Type B
+javaType: com.example.CircularA
+type: object
+properties:
+  b:
+    $ref: CircularB.yaml

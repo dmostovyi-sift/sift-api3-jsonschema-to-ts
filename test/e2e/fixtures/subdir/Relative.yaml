@@ -1,0 +1,4 @@
+title: RelativeType
+description: A simple type in a subdirectory
+javaType: com.example.subdir.RelativeType
+type: string

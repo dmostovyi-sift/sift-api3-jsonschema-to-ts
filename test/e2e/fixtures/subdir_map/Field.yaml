@@ -1,0 +1,12 @@
+title: Subdir Map Field
+description: Schema in a subdirectory with a Map referencing the same type (regression test for nested $ref relativization)
+javaType: com.example.subdirmap.Field
+type: object
+properties:
+  name:
+    type: string
+  children:
+    description: Map of nested Field values — javaType $ref must be relativized within subdir
+    type: object
+    javaType: java.util.Map<String, com.example.subdirmap.Field>
+additionalProperties: false

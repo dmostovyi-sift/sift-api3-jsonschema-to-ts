@@ -1,4 +1,6 @@
-## Sift Schema - JSONSchema to TypeScript Compiler
+## jyst — JSONSchema to TypeScript Compiler
+
+**jyst** stands for **J**ava **Y**AML **S**chema to **T**ypeScript.
 
 A tool to compile Sift API3 JSONSchemas to TypeScript type definitions.
 

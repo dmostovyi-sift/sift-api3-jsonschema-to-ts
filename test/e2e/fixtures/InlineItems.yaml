@@ -1,0 +1,22 @@
+title: InlineItems
+description: Object with array items that carry their own inline javaType and sub-properties
+javaType: com.example.InlineItems
+type: object
+properties:
+  signals:
+    type: array
+    items:
+      type: object
+      javaType: com.example.SignalItem
+      properties:
+        name:
+          type: string
+        impact:
+          type: number
+          minimum: -1
+          maximum: 1
+        active:
+          type: boolean
+          required: false
+      additionalProperties: false
+additionalProperties: false

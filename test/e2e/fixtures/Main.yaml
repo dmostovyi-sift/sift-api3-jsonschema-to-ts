@@ -1,0 +1,26 @@
+title: MainObject
+description: The main entry point testing various references
+javaType: com.example.MainObject
+type: object
+properties:
+  simpleField:
+    type: string
+  enumField:
+    $ref: Enums.yaml
+  nestedRef:
+    $ref: Nested.yaml
+  subDirRef:
+    $ref: subdir/Sub.yaml
+  mapField:
+    type: object
+    javaType: java.util.Map<String, com.example.subdir.RelativeType>
+  listField:
+    type: array
+    items:
+      $ref: subdir/Relative.yaml
+  innerClass:
+    type: object
+    javaType: com.example.MainObject.Inner
+    properties:
+      innerField:
+        type: integer

@@ -1,14 +1,17 @@
 {
-  "name": "sift-generate-types",
+  "name": "jyst",
   "version": "0.0.0",
   "main": "lib/index.js",
   "bin": {
-    "sift-schema": "bin/sift-schema.js"
+    "jyst": "bin/sift-schema.js"
   },
   "type": "module",
   "scripts": {
-    "parse": "node ./bin/sift-schema.js -i ~/sift/code/java/sift-json/src/main/json/ -o ~/sift/console/src/schema/",
-    "test": "node --test --experimental-test-coverage"
+    "parse": "jyst -i ~/sift/code/java/sift-json/src/main/json/ -o ~/sift/console/src/schema/",
+    "test": "node --test --experimental-test-coverage",
+    "test:unit": "node --test test/*.test.js --experimental-test-coverage",
+    "test:e2e": "node --test --experimental-test-coverage --test-reporter=tap test/e2e/**/*.test.js",
+    "coverage": "c8 --reporter=html --reporter=text node --test"
   },
   "dependencies": {
     "json-schema-to-typescript": "^15.0.4",
@@ -16,5 +19,9 @@
     "tinyglobby": "^0.2.15",
     "typescript": "^5.9.3",
     "yaml": "^2.8.2"
+  },
+  "devDependencies": {
+    "c8": "^11.0.0",
+    "lcov": "^1.16.0"
   }
 }

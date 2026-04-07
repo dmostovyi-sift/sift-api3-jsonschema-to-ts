@@ -1,0 +1,25 @@
+---
+title: SupportPlan
+description: JSON representation of a support plan
+javaType: com.sift.api.representations.SupportPlanJson
+properties:
+  support_plan:
+    description: The tier of the feature plan.
+    enum:
+    - standard_support
+    - premium_support
+    - enterprise_support
+    javaType: com.sift.api.representations.SupportPlanJsonSupportPlan
+    required: true
+  percentage:
+    description: The percentage of the total bill represented as a value between 0.0 and 1.0. If
+        present, overrides default percent associated with this tier.
+    type: number
+  minimum_flat_fee:
+    description: The minimum flat rate for support in micro dollars. If presentm overrides default
+        flat rate associated with this tier.
+    type: integer
+  begin_at:
+    description: The time this plan became or will become active as a Java timestamp
+    type: integer
+additionalProperties: false

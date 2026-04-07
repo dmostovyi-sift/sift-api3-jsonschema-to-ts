@@ -1,0 +1,21 @@
+---
+title: Event Counts
+description: Success and error counts for an event
+type: object
+javaType: com.sift.api.representations.EventCountsJson
+properties:
+  ok:
+    type: integer
+  error:
+    type: integer
+  warning:
+    type: integer
+  error_detail:
+    type: object
+    javaType: java.util.Map<String, Long>
+    required: false
+  warning_detail:
+    type: object
+    javaType: java.util.Map<String, Long>
+    required: false
+additionalProperties: false

@@ -1,0 +1,95 @@
+---
+title: JSON representation of an account's configuration
+type: object
+javaType: com.sift.api.representations.AccountConfigJson
+properties:
+  email_notification_address:
+    description: The email address to which score notifications will be sent.
+    type: string
+    format: email
+    pattern: .+@.+|^$
+  email_notification_threshold:
+    description: The threshold (in the range 0 to 1) of Sift score above which email
+      notifications will be triggered.
+    type: number
+    maximum: 1.0
+    minimum: 0.0
+  http_notification_url:
+    description: The URL to which HTTP notifications will be POSTed. Partners must
+      include `%s` somewhere in the URL string. This will be replaced by the merchant's
+      account id.
+    type: string
+    scope: public
+    pattern: ^https?://\S+$|^$
+  http_notification_threshold:
+    description: The threshold (in the range 0 to 1) of Sift score above which HTTP
+      notifications will be triggered.
+    type: number
+    maximum: 1.0
+    minimum: 0.0
+    scope: public
+  user_cross_reference_url:
+    type: string
+  order_cross_reference_url:
+    type: string
+  content_cross_reference_url:
+    type: string
+  should_display_email_address:
+    type: boolean
+  enable_sort_by_expected_loss:
+    type: boolean
+  is_partner:
+    type: boolean
+  is_account_disabled:
+    type: boolean
+  min_notification_score_delta:
+    type: number
+  min_notification_time_delta:
+    type: integer
+  skip_page_activity_scoring:
+    type: boolean
+  abuse_type_for_generic_labels:
+    type: string
+    description: >-
+      Must be one of the enum values of AbuseType.abuse_type.  A client
+      may send the value "" for this field to clear its value.
+  should_use_user_status_for_reporting_dashboard:
+    type: boolean
+  include_orderless_transactions_in_reports:
+    type: boolean
+    description: >-
+      Setting indicating whether orders created without specified order ids (from $create_account
+      or $transaction events) should be included in order-based reports.
+  reporting_timezone:
+    type: string
+  card_layouts:
+    type: object
+    javaType: java.util.Map<AbuseTypeJsonAbuseType, CardLayoutJson>
+  decision_webook_version:
+    type: string
+  webhook_version:
+    type: object
+    javaType: java.util.Map<String, String>
+  force_two_factor_auth:
+    type: boolean
+  industry_view:
+    description: The Industry specific view to show customers
+    enum:
+      - fintech
+      - ecommerce
+  primary_score:
+    description: Setting indicates which one of these scores is selected to be display as primary score
+    type: string
+    default: "sift_score"
+  secondary_score:
+    description: Setting indicates which one of these scores is selected to be display as secondary score
+    type: string
+  percentile_score_color_ranges:
+    description: Setting indicates color ranges for percentile scores. Example, [45, 95] that would be '< 45 (grey), 45 < 95 (orange), < 95 (red)'
+    type: array
+    items:
+      type: number
+  update_rq_columns:
+    description: Flag indicates that the selected primary and secondary score columns should be updated to appear as the first columns in the existing review queues.
+    type: boolean
+additionalProperties: false

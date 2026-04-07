@@ -1,0 +1,12 @@
+title: FragmentRef
+description: Schema that references a property fragment from another file — $ref file.yaml#properties/field
+javaType: com.example.FragmentRef
+type: object
+properties:
+  status:
+    $ref: EnumSource.yaml#properties/status
+    required: true
+  count:
+    type: integer
+    required: false
+additionalProperties: false

@@ -1,0 +1,30 @@
+title: AbuseType
+description: JSON representation of an abuse type
+javaType: com.sift.api.representations.AbuseTypeJson
+properties:
+  abuse_type:
+    enum:
+    - payment_abuse
+    - content_abuse
+    - promotion_abuse
+    - account_abuse
+    - legacy
+    - account_takeover
+    - bot_management
+    - policy_abuse
+    enum_descriptions:
+      payment_abuse: this user is using stolen payment information (e.g. a stolen credit card) to
+        purchase goods or services.
+      content_abuse: this user is creating content or sending messages on your site in an abusive
+        manner.
+      promotion_abuse: this user is intentionally gaming the terms of a promotional credit for their
+        own benefit, usually through the creation of fake accounts.
+      account_abuse: this user is abusing your site in any manner not captured by the other types of
+        abuse defined above.
+      legacy: old scores or labels not tied to any specific abuse type.
+      account_takeover: this user's account is at risk of being taken over.
+      bot_management: activity appears to be automated.
+      policy_abuse: this user is taking advantage and pushing the boundaries
+        of a merchant's business policies, for their own benefit.
+    javaType: com.sift.api.representations.AbuseTypeJsonAbuseType
+additionalProperties: false

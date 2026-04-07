@@ -1,0 +1,22 @@
+---
+title: Product
+description: JSON representation of a request to change an account's products
+javaType: com.sift.api.representations.ProductJson
+properties:
+  product:
+    description: The product or use case the customer signed up for.
+    enum:
+    - abuse
+    - chargeback
+    - fake_accounts
+    - device_fingerprinting
+    - undecided
+    required: false
+    javaType: com.sift.api.representations.ProductJsonProduct
+  abuse_types:
+    type: array
+    items:
+      $ref: abuse_type.yaml#properties/abuse_type
+    uniqueItems: true
+    required: false
+additionalProperties: false

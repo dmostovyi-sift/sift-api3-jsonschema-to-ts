@@ -1,0 +1,16 @@
+title: EnumSource
+description: Source schema that owns an enum property referenced by other schemas via fragment $ref
+javaType: com.example.EnumSource
+type: object
+properties:
+  status:
+    enum:
+      - active
+      - inactive
+      - pending
+    javaType: com.example.StatusType
+    required: true
+  name:
+    type: string
+    required: true
+additionalProperties: false

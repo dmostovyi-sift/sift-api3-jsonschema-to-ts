@@ -1,0 +1,21 @@
+---
+title: FeaturePlan
+description: JSON representation of a feature plan
+javaType: com.sift.api.representations.FeaturePlanJson
+properties:
+  feature_plan:
+    description: The tier of the feature plan.
+    enum:
+    - lite
+    - standard
+    - premium
+    - enterprise
+    - device_id
+    - custom_package
+    javaType: com.sift.api.representations.FeaturePlanJsonFeaturePlan
+  custom_package_id:
+    type: string
+    description: id of custom package if feture_plan is custom_package
+    required: false
+    default: ""
+additionalProperties: false
