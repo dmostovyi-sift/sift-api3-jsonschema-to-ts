@@ -1,9 +1,10 @@
 {
   "name": "jyst",
   "version": "0.0.0",
+  "description": "Converts Sift API3 JSONSchema YAML files (with Java javaType metadata) into TypeScript interface definitions.",
   "main": "lib/index.js",
   "bin": {
-    "jyst": "bin/sift-schema.js"
+    "jyst": "bin/jyst.js"
   },
   "type": "module",
   "scripts": {

@@ -1,67 +1,156 @@
-## jyst — JSONSchema to TypeScript Compiler
+## jyst · Java YAML Schema → TypeScript
 
-**jyst** stands for **J**ava **Y**AML **S**chema to **T**ypeScript.
+Converts Sift API3 JSONSchema YAML files (with Java `javaType` metadata) into TypeScript interface definitions.
 
-A tool to compile Sift API3 JSONSchemas to TypeScript type definitions.
+---
 
 ### Installation
 
-TODO
-
-### Usage
-
-#### Command Line Interface
-
-The tool accepts input directory containing YAML schemas and outputs TypeScript definition files.
-
 ```bash
-# Using global installation
-sift-schema -i <input-directory> -o <output-directory>
-
-# Using local installation
-npx sift-schema -i <input-directory> -o <output-directory>
-
+npm install -g jyst
 ```
 
-#### Options
-
-- `-i, --input`: Input directory containing JSON Schema YAML files
-- `-o, --output`: Output directory for generated TypeScript files
-
-#### Example
+Or run without installing:
 
 ```bash
-# Convert schemas from a source directory to TypeScript definitions
-sift-schema -i ~/sift/code/java/sift-json/src/main/json/ -o ~/sift/console/src/schema/
-
+npx jyst -i <input> -o <output>
 ```
 
-### Generation Process
+---
 
-1. Copy all JSONSchema files to a temporary directory
-2. Parse YAML files and get JSON representation
-3. Normalize the schemas
-   1. Set the schema header in accordance with the Java class specified in the `javaType` field
-   2. Correct `$ref` according to the specification 3. Clean the schema from unnecessary fields that may cause errors during type generation
-   3. Transform all `javaTypes` in their respective JSONSchema
-4. Save the selected objects to a temporary directory
-5. Compile the generated files into TypeScript type definitions
-6. Save the generated files to the target directory
+### CLI Usage
 
-### Features
+```
+jyst · Java YAML Schema → TypeScript
 
-- Converts Java types to TypeScript types
-- Handles nested references between schemas
-- Supports generic types
-- Properly handles required fields
-- Maintains type relationships across files
+Usage: jyst -i <inputDir> -o <outputDir>
 
-### Project Status
+Options:
+  -i, --input   Input directory containing YAML schema files
+  -o, --output  Output directory for TypeScript files
+  -v, --version Print version
+  -h, --help    Show this help message
+```
 
-- [x] Proper required fields handling
+#### Basic example
+
+```bash
+jyst -i ./schemas -o ./src/types
+```
+
+#### Sift API3 schemas → console types
+
+```bash
+jyst \
+  -i ~/sift/code/java/sift-json/src/main/json \
+  -o ~/sift/console/src/schema
+```
+
+---
+
+### Bash script examples
+
+#### Watch mode (re-compile on change)
+
+```bash
+#!/usr/bin/env bash
+INPUT=~/sift/code/java/sift-json/src/main/json
+OUTPUT=~/sift/console/src/schema
+
+echo "Watching $INPUT for changes..."
+fswatch -o "$INPUT" | while read; do
+  jyst -i "$INPUT" -o "$OUTPUT"
+done
+```
+
+#### CI pipeline step
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+INPUT=src/main/json
+OUTPUT=generated/types
+
+echo "Generating TypeScript types..."
+jyst -i "$INPUT" -o "$OUTPUT"
+
+echo "Checking for uncommitted changes..."
+if ! git diff --quiet "$OUTPUT"; then
+  echo "ERROR: Generated types are out of date. Run 'jyst -i $INPUT -o $OUTPUT' and commit the result."
+  exit 1
+fi
+
+echo "Types are up to date."
+```
+
+#### Generate and copy to multiple targets
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+INPUT=~/sift/code/java/sift-json/src/main/json
+TARGETS=(
+  ~/sift/console/src/schema
+  ~/sift/admin/src/schema
+)
+
+TMPOUT=$(mktemp -d)
+trap "rm -rf $TMPOUT" EXIT
+
+jyst -i "$INPUT" -o "$TMPOUT"
+
+for TARGET in "${TARGETS[@]}"; do
+  mkdir -p "$TARGET"
+  cp -r "$TMPOUT/." "$TARGET/"
+  echo "  → $TARGET"
+done
+```
+
+---
+
+### How it works
+
+1. Copy source YAMLs to a temp directory
+2. Parse each YAML into a schema object, extracting `javaType` metadata
+3. Build a cross-file reference map (`javaType` → file path)
+4. Transform schemas:
+   - Set `title` from `javaType`
+   - Build `required` arrays from property metadata
+   - Fix `$ref` paths to point to temp JSON files
+   - Resolve circular and self-references using `tsType` annotations
+   - Strip Java-only fields (`readonly`, `scope`, etc.)
+   - Convert remaining `javaType` values to proper JSON Schema types
+5. Save intermediate JSON to a temp directory
+6. Compile each JSON schema to TypeScript via `json-schema-to-typescript`
+7. Rewrite generic interface signatures (e.g. `MyClass` → `MyClass<T = unknown>`)
+8. Resolve and emit relative `import type` statements for cross-file references
+9. Write `.ts` files to the output directory
+
+### Supported Java type mappings
+
+| Java type | TypeScript |
+|---|---|
+| `String`, `UUID` | `string` |
+| `Integer`, `Long`, `Double`, `Float` | `number` |
+| `Boolean` | `boolean` |
+| `List<T>` | `T[]` |
+| `Map<K, V>` | `{ [k: string]: V }` |
+| Custom class | Interface reference |
+| Generic class `Foo<T>` | `Foo<T = unknown>` |
+
+---
+
+### Project status
+
 - [x] CLI tool
-- [x] Basic tests
+- [x] Java type → TypeScript type mapping
 - [x] Generic type support
-- [x] Import referenced types, not redeclare them
-- [ ] Comprehensive test coverage
-      `
+- [x] Cross-file `import type` resolution
+- [x] Required fields handling
+- [x] Circular / self-reference handling
+- [x] Subdirectory schema support
+- [x] E2E golden-file tests
+- [ ] Comprehensive unit test coverage
+- [ ] npm publish / installation docs
