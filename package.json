@@ -8,7 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "parse": "jyst -i ~/sift/code/java/sift-json/src/main/json/ -o ~/sift/console/src/schema/",
+    "parse": "npx jyst -i ~/sift/code/java/sift-json/src/main/json/ -o ~/sift/console/src/schema/",
     "test": "node --test --experimental-test-coverage",
     "test:unit": "node --test test/*.test.js --experimental-test-coverage",
     "test:e2e": "node --test --experimental-test-coverage --test-reporter=tap test/e2e/**/*.test.js",
