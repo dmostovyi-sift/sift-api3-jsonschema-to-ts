@@ -1,0 +1,27 @@
+---
+title: JSON representation of Review Queue column.
+type: object
+javaType: com.sift.api.representations.ReviewQueueColumnJson
+properties:
+  id:
+    type: string
+    default: null
+  name:
+    type: string
+    default: null
+  entityType:
+    type: string
+    default: null
+  sortable:
+    type: boolean
+    default: 'false'
+  default:
+    type: boolean
+    default: 'false'
+  static:
+    type: boolean
+    default: 'false'
+  description:
+    type: string
+
+additionalProperties: false

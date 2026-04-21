@@ -1,0 +1,18 @@
+---
+title: EntityType
+description: JSON representation of an entity type
+javaType: com.sift.api.representations.EntityTypeJson
+properties:
+  entity_type:
+    enum:
+      - user
+      - order
+      - session
+      - content
+    enum_descriptions:
+      user: represents user entity, available for all abuse types.
+      order: represents order entity, created from events containing order_id.
+      session: represents session entity, created within ATO abuse type.
+      content: represents content entity, created within Content Abuse.
+    javaType: com.sift.api.representations.EntityType
+additionalProperties: false
