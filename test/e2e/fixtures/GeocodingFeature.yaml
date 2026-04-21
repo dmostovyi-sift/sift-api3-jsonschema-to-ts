@@ -1,0 +1,22 @@
+---
+title: JSON representation of Geocoding Feature
+type: object
+javaType: com.sift.api.representations.GeocodingFeatureJson
+properties:
+  address:
+    type: string
+  place:
+    type: string
+  region:
+    type: string
+  country_code:
+    type: string
+  postcode:
+    type: string
+  coordinates:
+    type: object
+    properties:
+      longitude:
+        type: double
+      latitude:
+        type: double
