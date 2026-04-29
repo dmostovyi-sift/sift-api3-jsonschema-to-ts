@@ -1,0 +1,9 @@
+title: TitleProperty
+description: Schema with a property named title (regression test for normalizeSchemaTitle)
+javaType: com.example.TitleProperty
+type: object
+properties:
+  title:
+    type: string
+  type:
+    type: string
